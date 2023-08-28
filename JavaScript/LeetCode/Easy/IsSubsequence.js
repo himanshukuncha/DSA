@@ -1,18 +1,16 @@
 const IsSubsequence = (s, t) => {
-  if (s.length === 0) return true
+  let index = 0;
 
-  let i = 0,
-    j = 0
-  while (i < s.length && j < t.length) {
-    if (s[i] === t[j]) {
-      i++
+  for (const char of t) {
+    if (char === s[index]) {
+      index++;
     }
-    j++
+    if (index === s.length) {
+      return true;
+    }
   }
 
-  if (i === s.length) return true
+  return index === s.length;
+};
 
-  return false
-}
-
-console.log(IsSubsequence('aaaaaa', 'bbaaaa'))
+console.log(IsSubsequence("aaaaaa", "bbaaaa")); // Outputs: false
