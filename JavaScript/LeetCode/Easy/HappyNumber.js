@@ -1,20 +1,23 @@
-const HappyNumber = (n) => {
-  if (n === 1 || n === 7) return true
-  if (n % 10 === n) return false
+const getSumOfSquares = (n) => {
+  let sum = 0;
+  while (n > 0) {
+    let digit = n % 10;
+    sum += digit * digit;
+    n = Math.floor(n / 10);
+  }
+  return sum;
+};
 
-  let sum = 0
-  let temp = n
+const isHappy = (n) => {
+  let slow = n;
+  let fast = getSumOfSquares(n);
 
-  while (temp != 0) {
-    sum += Math.floor(temp % 10) ** 2
-    temp = temp / 10
+  while (fast !== 1 && slow !== fast) {
+    slow = getSumOfSquares(slow);
+    fast = getSumOfSquares(getSumOfSquares(fast)); // Two steps at a time
   }
 
-  if (sum === 1) {
-    return true
-  }
+  return fast === 1;
+};
 
-  return HappyNumber(sum)
-}
-
-console.log(HappyNumber(19))
+console.log(isHappy(19)); // true
