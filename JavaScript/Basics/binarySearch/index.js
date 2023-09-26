@@ -99,54 +99,84 @@ const binarySearch4 = (array, letter) => {
 };
 console.log(4, binarySearch4(letters, "g"));
 
-//===================================   medium binarySearch   ==========================================
-class FirstAndLastPosition {
-  searchRange(nums, target) {
-    let ans = [-1, -1];
+//===================================   Medium level BinarySearch   ==========================================
+let nums = [1, 2, 2, 2, 2, 4, 5];
 
-    // check for first occurrence of target first
-    ans[0] = this.search(nums, target, true);
+function search(nums, target, findStartIndex) {
+  let ans = -1;
+  let start = 0;
+  let end = nums.length - 1;
 
-    if (ans[0] !== -1) {
-      ans[1] = this.search(nums, target, false);
-    }
+  while (start <= end) {
+    // find the middle element
+    let mid = start + Math.floor((end - start) / 2);
 
-    return ans;
-  }
+    if (target < nums[mid]) {
+      end = mid - 1;
+    } else if (target > nums[mid]) {
+      start = mid + 1;
+    } else {
+      // potential ans found
+      ans = mid;
 
-  // this function just returns the index value of target
-  search(nums, target, findStartIndex) {
-    let ans = -1;
-    let start = 0;
-    let end = nums.length - 1;
-
-    while (start <= end) {
-      // find the middle element
-      let mid = start + Math.floor((end - start) / 2);
-
-      if (target < nums[mid]) {
+      if (findStartIndex) {
         end = mid - 1;
-      } else if (target > nums[mid]) {
-        start = mid + 1;
       } else {
-        // potential ans found
-        ans = mid;
-
-        if (findStartIndex) {
-          end = mid - 1;
-        } else {
-          start = mid + 1;
-        }
+        start = mid + 1;
       }
     }
-
-    return ans;
   }
+
+  return ans;
 }
 
-// Example usage
-let finder = new FirstAndLastPosition();
-let nums = [1, 2, 2, 2, 3, 4, 5];
-let target = 2;
+function searchRange(nums, target) {
+  let ans = [-1, -1];
 
-console.log(finder.searchRange(nums, target)); // Should print the first and last position of target in nums
+  // check for first occurrence of target first
+  ans[0] = this.search(nums, target, true);
+
+  if (ans[0] !== -1) {
+    ans[1] = this.search(nums, target, false);
+  }
+
+  return ans;
+}
+
+console.log(5, searchRange(nums, 2));
+
+// ================== Infinite array Binary Search ==============================
+// we will be searching in chuncks inside the infinite array, doubling the size of the chunk each time
+
+let arr = [3, 5, 7, 9, 10, 90, 100, 130, 140, 160, 170];
+function binarySearch6(arr, target, start, end) {
+  while (start <= end) {
+    let mid = start + Math.floor((end - start) / 2);
+
+    if (target < arr[mid]) {
+      end = mid - 1;
+    } else if (target > arr[mid]) {
+      start = mid + 1;
+    } else {
+      return mid;
+    }
+  }
+  return -1;
+}
+
+function ans(arr, target) {
+  let start = 0;
+  let end = 1;
+
+  // condition for the target to lie in the range
+  while (target > arr[end]) {
+    let newStart = end + 1; // this is my new start
+    // double the box value
+    // end = previous end + sizeofbox*2
+    end = end + (end - start + 1) * 2;
+    start = newStart;
+  }
+  return binarySearch6(arr, target, start, end);
+}
+
+console.log(6, ans(arr, 3));
