@@ -180,3 +180,32 @@ function ans(arr, target) {
 }
 
 console.log(6, ans(arr, 3));
+
+// Mountain Array Largest number
+//linear search
+let marray = [1, 2, 3, 5, 8, 5, 3, 2, 1];
+// const binarySearch7 = (array) => {
+//   for (let i = 0; i < array.length - 1; i++) {
+//     if (array[i] < array[i - 1]) {
+//       return array[i - 1];
+//     }
+//   }
+// };
+// console.log(7,binarySearch7(marray));
+
+// Binary Search
+const binarySearch7 = (array) => {
+  let start = 0;
+  let end = array.length - 1;
+
+  while (start < end) {
+    let mid = start + Math.floor((end - start) / 2);
+    if (array[mid] < array[mid + 1]) {
+      start = mid + 1;
+    } else {
+      end = mid;
+    }
+  }
+  return array[start];
+};
+console.log(7, binarySearch7(marray));
