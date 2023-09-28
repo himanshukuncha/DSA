@@ -209,3 +209,64 @@ const binarySearch7 = (array) => {
   return array[start];
 };
 console.log(7, binarySearch7(marray));
+
+// Searching for an element in a mountain array(if duplicate present return the lowest index)
+function search(arr, target) {
+    const peak = peakIndexInMountainArray(arr);
+    const firstTry = orderAgnosticBS(arr, target, 0, peak);
+    if (firstTry !== -1) {
+        return firstTry;
+    }
+    // try to search in second half
+    return orderAgnosticBS(arr, target, peak + 1, arr.length - 1);
+}
+
+function peakIndexInMountainArray(arr) {
+    let start = 0;
+    let end = arr.length - 1;
+
+    while (start < end) {
+        const mid = Math.floor(start + (end - start) / 2);
+        if (arr[mid] > arr[mid + 1]) {
+            // you are in dec part of array
+            // this may be the ans, but look at left
+            end = mid;
+        } else {
+            // you are in asc part of array
+            start = mid + 1; // because we know that mid+1 element > mid element
+        }
+    }
+    return start;
+}
+
+function orderAgnosticBS(arr, target, start, end) {
+    const isAsc = arr[start] < arr[end];
+
+    while (start <= end) {
+        const mid = Math.floor(start + (end - start) / 2);
+        if (arr[mid] === target) {
+            return mid;
+        }
+
+        if (isAsc) {
+            if (target < arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        } else {
+            if (target > arr[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+    }
+    return -1;
+}
+
+// For testing
+const arrayy = [0, 2, 3, 4, 5, 3, 1];
+const target = 3;
+console.log(search(arr, target));  // It should return the index of target in the mountain array
+
