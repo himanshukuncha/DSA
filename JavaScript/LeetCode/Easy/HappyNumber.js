@@ -9,15 +9,14 @@ const getSumOfSquares = (n) => {
 };
 
 const isHappy = (n) => {
-  let slow = n;
-  let fast = getSumOfSquares(n);
+  let seen = new Set();
 
-  while (fast !== 1 && slow !== fast) {
-    slow = getSumOfSquares(slow);
-    fast = getSumOfSquares(getSumOfSquares(fast)); // Two steps at a time
+  while (n !== 1 && !seen.has(n)) {
+    seen.add(n);
+    n = getSumOfSquares(n);
   }
 
-  return fast === 1;
+  return n === 1;
 };
 
 console.log(isHappy(19)); // true
