@@ -1,5 +1,6 @@
 const LengthOfLastWord = (str) => {
   let end = str.length - 1;
+
   while (end >= 0 && str[end] === " ") {
     end--;
   }
@@ -13,4 +14,4 @@ const LengthOfLastWord = (str) => {
   return end - start;
 };
 
-console.log(LengthOfLastWord("Hello World")); 
+console.log(LengthOfLastWord("Hello World"));
