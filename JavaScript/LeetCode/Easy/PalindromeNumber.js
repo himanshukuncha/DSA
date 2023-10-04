@@ -1,11 +1,13 @@
-const PalindromeNumber = (num) => {
-  let rev = 0
-  let temp = num
-  while (temp !== 0) {
-    rev = rev * 10 + (temp % 10)
-    temp = Math.floor(temp / 10)
-  }
-  return num === rev ? true : false
-}
+const isPalindromeNumber = (num) => {
+  const originalNum = num;
+  let reversedNum = 0;
 
-console.log(PalindromeNumber(4554354))
+  while (num > 0) {
+    reversedNum = reversedNum * 10 + (num % 10);
+    num = Math.floor(num / 10);
+  }
+
+  return originalNum === reversedNum;
+};
+
+console.log(isPalindromeNumber(4554354));
