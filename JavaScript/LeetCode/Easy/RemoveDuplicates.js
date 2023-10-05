@@ -1,8 +1,12 @@
 const removeDuplicates = (nums) => {
-    let j = 1;
-    for(let i = 1 ; i < nums.length ; i++){
-        if(nums[i] !== nums[i-1]){
-            
-        }
+  if (nums.length === 0) return 0; 
+
+  let i = 1; // start from the second element
+  for (let j = 1; j < nums.length; j++) {
+    if (nums[j] !== nums[j - 1]) {
+      nums[i] = nums[j];
+      i++;
     }
-}
+  }
+  return i; 
+};
