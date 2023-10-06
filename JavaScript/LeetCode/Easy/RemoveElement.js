@@ -2,14 +2,14 @@
 Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do */
 
 const removeElement = (nums, val) => {
-  let count = 0
-  nums.filter((num) => {
-    if (num !== val) {
-      nums[count] = num
-      count++
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[count++] = nums[i];
     }
-  })
-  return count
-}
+  }
+  nums.length = count; // adjust the array size
+  return count;
+};
 
-console.log(removeElement([3,2,2,3], 3));
+console.log(removeElement([3, 2, 2, 3], 3));
