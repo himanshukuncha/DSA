@@ -1,23 +1,20 @@
 const isAnagram = function (s, t) {
-  if (s.length !== t.length) return false
+  if (s.length !== t.length) return false;
 
-  let frequencyCounter1 = {}
-  let frequencyCounter2 = {}
+  let frequencyCounter = {};
 
-  s = s.toLowerCase()
-  t = t.toLowerCase()
+  s = s.toLowerCase();
+  t = t.toLowerCase();
 
-  for (let val of s) {
-    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1
+  for (let i = 0; i < s.length; i++) {
+    
+    frequencyCounter[s[i]] = (frequencyCounter[s[i]] || 0) + 1;
+    frequencyCounter[t[i]] = (frequencyCounter[t[i]] || 0) - 1;
   }
 
-  for (let val of t) {
-    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1
+  for (let val in frequencyCounter) {
+    if (frequencyCounter[val] !== 0) return false;
   }
 
-  for (let val in frequencyCounter1) {
-    if (frequencyCounter1[val] !== frequencyCounter2[val]) return false
-  }
-
-  return true
-}
+  return true;
+};
