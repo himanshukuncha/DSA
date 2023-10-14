@@ -1,17 +1,19 @@
-const ProductOfArrayExceptItself = (arr) => {
-  let result = []
-  result[0] = 1
-  for (let i = 1; i < arr.length; i++) {
-    result[i] = result[i - 1] * arr[i - 1]
+const productExceptSelf = (nums) => {
+  const n = nums.length;
+  const output = new Array(n).fill(1); 
+  let leftProduct = 1;
+  for (let i = 1; i < n; i++) {
+    leftProduct *= nums[i - 1];
+    output[i] *= leftProduct;
   }
 
-  let R = 1
-  for (let i = arr.length - 1; i >= 0; i--) {
-    result[i] = result[i] * R
-    R = R * arr[i]
+  let rightProduct = 1;
+  for (let i = n - 2; i >= 0; i--) {
+    rightProduct *= nums[i + 1];
+    output[i] *= rightProduct;
   }
 
-  return result
-}
+  return output;
+};
 
-console.log(ProductOfArrayExceptItself([1, 2, 3, 4]))
+console.log(productExceptSelf([1, 2, 3, 4])); 
