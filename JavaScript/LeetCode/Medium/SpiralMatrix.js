@@ -1,50 +1,49 @@
-// ASKED IN INTERVIEW
+const spiralOrder = (matrix) => {
+  if (!matrix.length) return [];
 
-const SpiralMatrix = (matrix) => {
-  let rBegin = 0
-  let cBegin = 0
-  let rEnd = matrix.length - 1
-  let cEnd = matrix[0].length - 1
+  const result = [];
+  let topRow = 0,
+    bottomRow = matrix.length - 1,
+    leftCol = 0,
+    rightCol = matrix[0].length - 1;
 
-  let result = []
-
-  while (rBegin <= rEnd && cBegin <= cEnd) {
-    for (let i = cBegin; i <= cEnd; i++) {
-      result.push(matrix[rBegin][i])
+  while (topRow <= bottomRow && leftCol <= rightCol) {
+    // Traverse right
+    for (let col = leftCol; col <= rightCol; col++) {
+      result.push(matrix[topRow][col]);
     }
+    topRow++;
 
-    rBegin++
-
-    for (let i = rBegin; i <= rEnd; i++) {
-      result.push(matrix[i][cEnd])
+    // Traverse down
+    for (let row = topRow; row <= bottomRow; row++) {
+      result.push(matrix[row][rightCol]);
     }
+    rightCol--;
 
-    cEnd--
-
-    if (rBegin <= rEnd) {
-      for (let i = cEnd; i >= cBegin; i--) {
-        result.push(matrix[rEnd][i])
+    // Traverse left
+    if (topRow <= bottomRow) {
+      for (let col = rightCol; col >= leftCol; col--) {
+        result.push(matrix[bottomRow][col]);
       }
+      bottomRow--;
     }
 
-    rEnd--
-
-    if (cBegin <= cEnd) {
-      for (let i = rEnd; i >= rBegin; i--) {
-        result.push(matrix[i][cBegin])
+    // Traverse up
+    if (leftCol <= rightCol) {
+      for (let row = bottomRow; row >= topRow; row--) {
+        result.push(matrix[row][leftCol]);
       }
+      leftCol++;
     }
-
-    cBegin++
   }
 
-  return result
-}
+  return result;
+};
 
 const matrix = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9],
-]
+];
 
-console.log(SpiralMatrix(matrix))
+console.log(spiralOrder(matrix));
