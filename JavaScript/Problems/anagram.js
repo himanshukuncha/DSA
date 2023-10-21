@@ -1,30 +1,23 @@
-//USING FREQUENCY COUNTER
-
 const anagram = (str1, str2) => {
-  str1 = str1.toLowerCase()
-  str2 = str2.toLowerCase()
+  str1 = str1.toLowerCase();
+  str2 = str2.toLowerCase();
 
-  let frequencyCounter1 = {}
-  let frequencyCounter2 = {}
+  if (str1.length !== str2.length) return false;
 
-  if (str1.length != str2.length) return false
+  let frequencyCounter = {};
 
-  //FIRST LOOP TO CALCULATE FREQUENCIES OF FIRST STRING
-  for (let val of str1) {
-    frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1
+  
+  for (let i = 0; i < str1.length; i++) {
+    frequencyCounter[str1[i]] = (frequencyCounter[str1[i]] || 0) + 1;
+    frequencyCounter[str2[i]] = (frequencyCounter[str2[i]] || 0) - 1;
   }
 
-  //SECOND LOOP TO CALCULATE FREQUENCIES OF FIRST STRING
-  for (let val of str2) {
-    frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1
+
+  for (let key in frequencyCounter) {
+    if (frequencyCounter[key] !== 0) return false;
   }
 
-  //THIRD LOOP TO COMPARE THE FREQUENCIES
-  for (let val in frequencyCounter1) {
-    if (frequencyCounter1[val] != frequencyCounter2[val]) return false
-  }
+  return true;
+};
 
-  return true
-}
-
-console.log(anagram('cinema', 'icemaniceman'))
+console.log(anagram("cinema", "iceman")); 
